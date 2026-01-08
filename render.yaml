@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: simple-blog-fullstack
+    env: node
+    buildCommand: |
+      # Install and build frontend
+      cd frontend
+      npm install
+      npm run build
+      
+      # Prepare backend folder
+      cd ..
+      mkdir -p backend/public
+      
+      # Copy frontend build into backend/public
+      cp -r frontend/build/* backend/public/
+      
+      # Install backend dependencies
+      cd backend
+      npm install
+
+    startCommand: cd backend && node server.js
